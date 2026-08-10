@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Compare two pizzas by edible area and price to find the best value.">
+  <meta name="theme-color" content="#c0392b">
+  <title>Pizza Value</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon.svg">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>Pizza Value</h1>
+      <p class="subtitle">Compare two pizzas — edible area matters more than total size.</p>
+      <button type="button" id="reset-btn" class="secondary-btn">Reset to defaults</button>
+    </header>
+
+    <main>
+      <section class="input-grid" aria-label="Pizza inputs">
+        <article class="pizza-card" data-pizza="A">
+          <h2>Pizza A</h2>
+          <label>
+            Diameter (cm)
+            <input type="number" name="diameter" min="0.1" step="0.5" value="30" required>
+          </label>
+          <label>
+            Price (€)
+            <input type="number" name="price" min="0.01" step="0.01" value="12" required>
+          </label>
+          <label>
+            Crust thickness (cm)
+            <input type="number" name="crust" min="0" step="0.1" value="2" required>
+          </label>
+          <p class="field-error" data-error-for="A" hidden></p>
+        </article>
+
+        <article class="pizza-card" data-pizza="B">
+          <h2>Pizza B</h2>
+          <label>
+            Diameter (cm)
+            <input type="number" name="diameter" min="0.1" step="0.5" value="35" required>
+          </label>
+          <label>
+            Price (€)
+            <input type="number" name="price" min="0.01" step="0.01" value="15" required>
+          </label>
+          <label>
+            Crust thickness (cm)
+            <input type="number" name="crust" min="0" step="0.1" value="2" required>
+          </label>
+          <p class="field-error" data-error-for="B" hidden></p>
+        </article>
+      </section>
+
+      <section id="results" class="results" aria-live="polite">
+        <div id="verdict-primary" class="verdict verdict-primary"></div>
+        <div id="verdict-secondary" class="verdict verdict-secondary" hidden></div>
+        <div id="validation-errors" class="validation-errors" hidden></div>
+
+        <div id="visualizations" class="visualizations"></div>
+
+        <div id="stats-grid" class="stats-grid"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Edible area excludes the crust ring. Lower €/cm² = better value.</p>
+    </footer>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

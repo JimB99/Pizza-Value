@@ -1,0 +1,313 @@
+:root {
+  color-scheme: light;
+  --bg: #fff8f3;
+  --surface: #ffffff;
+  --text: #2c1810;
+  --muted: #6b4f3f;
+  --border: #ecd9c8;
+  --accent: #c0392b;
+  --accent-soft: #fdecea;
+  --winner: #1f7a4d;
+  --winner-soft: #e8f7ef;
+  --crust: #d4a574;
+  --shadow: 0 10px 30px rgba(44, 24, 16, 0.08);
+  --radius: 16px;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(192, 57, 43, 0.08), transparent 40%),
+    var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+}
+
+.subtitle {
+  margin: 0.5rem 0 1rem;
+  color: var(--muted);
+}
+
+.secondary-btn {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+  font: inherit;
+}
+
+.secondary-btn:hover {
+  border-color: var(--accent);
+}
+
+.input-grid {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 720px) {
+  .input-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.pizza-card,
+.chart-card,
+.stats-card,
+.verdict {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.pizza-card {
+  padding: 1.25rem;
+}
+
+.pizza-card h2 {
+  margin: 0 0 1rem;
+  color: var(--accent);
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.7rem 0.8rem;
+  font: inherit;
+  background: #fff;
+}
+
+input:focus {
+  outline: 2px solid rgba(192, 57, 43, 0.25);
+  border-color: var(--accent);
+}
+
+.field-error {
+  margin: 0;
+  color: #b42318;
+  font-size: 0.9rem;
+}
+
+.results {
+  display: grid;
+  gap: 1rem;
+}
+
+.verdict {
+  padding: 1rem 1.25rem;
+}
+
+.verdict-primary {
+  font-size: 1.05rem;
+  font-weight: 700;
+  background: var(--winner-soft);
+  border-color: #b7e4c7;
+  color: #14532d;
+}
+
+.verdict-primary.is-tie {
+  background: var(--accent-soft);
+  border-color: #f5c2bc;
+  color: #7f1d1d;
+}
+
+.verdict-secondary {
+  color: var(--muted);
+  font-size: 0.95rem;
+  background: #faf6f2;
+}
+
+.validation-errors {
+  padding: 1rem 1.25rem;
+  background: #fff1f0;
+  border: 1px solid #f5c2bc;
+  border-radius: var(--radius);
+  color: #7f1d1d;
+}
+
+.validation-errors ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.visualizations {
+  display: grid;
+  gap: 1rem;
+}
+
+.pizza-visual-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.pizza-visual-card,
+.chart-card {
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.pizza-svg {
+  display: block;
+  margin: 0 auto;
+}
+
+.pizza-svg-meta {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.75rem 0 0;
+  text-align: left;
+}
+
+.pizza-svg-meta div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pizza-svg-meta dt {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.pizza-svg-meta dd {
+  margin: 0;
+}
+
+.chart-card h3,
+.stats-card h3 {
+  margin: 0 0 0.75rem;
+}
+
+.chart-note {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.svg-label,
+.svg-axis,
+.svg-value {
+  fill: var(--text);
+  font-size: 11px;
+}
+
+.bar {
+  fill: #f4a6a0;
+}
+
+.bar-winner {
+  fill: #2f9e62;
+}
+
+.bar-ghost {
+  fill: rgba(44, 24, 16, 0.12);
+}
+
+.share-row {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.share-label,
+.share-value {
+  font-size: 0.9rem;
+}
+
+.share-edible {
+  fill: var(--accent);
+}
+
+.share-crust {
+  fill: var(--crust);
+}
+
+.stats-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 720px) {
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.stats-card {
+  padding: 1rem 1.25rem;
+}
+
+.stats-card-winner {
+  border-color: #9fd4b3;
+  background: var(--winner-soft);
+}
+
+.stats-list {
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.stats-list div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.stats-list dt {
+  margin: 0;
+  color: var(--muted);
+}
+
+.stats-list dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.footer {
+  margin-top: 2rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
