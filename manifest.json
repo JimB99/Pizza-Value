@@ -1,7 +1,7 @@
 {
   "name": "Pizza Value",
   "short_name": "Pizza Value",
-  "description": "Compare two pizzas by edible area and price.",
+  "description": "Compare two pizzas by topping area and price.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#fff8f3",

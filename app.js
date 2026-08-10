@@ -1,7 +1,7 @@
 import { comparePizzas, parseNumber, savingsPercent } from './js/calculator.js';
 import { formatRatePerCm2 } from './js/format.js';
 import {
-  renderEdibleShareChart,
+  renderToppingShareChart,
   renderPizzaComparison,
   renderStatsCard,
   renderValueBarChart,
@@ -146,23 +146,23 @@ function renderVerdict(comparison) {
   setFieldError('A', []);
   setFieldError('B', []);
 
-  const { pizzaA, pizzaB, edibleWinner, totalWinner, verdictsDiffer } = comparison;
+  const { pizzaA, pizzaB, toppingWinner, totalWinner, verdictsDiffer } = comparison;
   if (!pizzaA || !pizzaB) {
     return;
   }
 
-  if (edibleWinner === 'tie') {
-    verdictPrimary.textContent = 'Both pizzas offer the same edible value.';
+  if (toppingWinner === 'tie') {
+    verdictPrimary.textContent = 'Both pizzas offer the same topping value.';
     verdictPrimary.className = 'verdict verdict-primary is-tie';
   } else {
-    const winner = edibleWinner === 'A' ? pizzaA : pizzaB;
-    const loser = edibleWinner === 'A' ? pizzaB : pizzaA;
-    const savings = savingsPercent(edibleWinner, pizzaA, pizzaB);
+    const winner = toppingWinner === 'A' ? pizzaA : pizzaB;
+    const loser = toppingWinner === 'A' ? pizzaB : pizzaA;
+    const savings = savingsPercent(toppingWinner, pizzaA, pizzaB);
     verdictPrimary.className = 'verdict verdict-primary';
     verdictPrimary.textContent =
-      `${winner.label} is better value for edible area — ` +
-      `${formatRatePerCm2(winner.pricePerEdibleCm2)} vs ${formatRatePerCm2(loser.pricePerEdibleCm2)} ` +
-      `(${Math.round(savings)}% cheaper per edible cm²)`;
+      `${winner.label} has better topping value — ` +
+      `${formatRatePerCm2(winner.pricePerToppingCm2)} vs ${formatRatePerCm2(loser.pricePerToppingCm2)} ` +
+      `(${Math.round(savings)}% cheaper per topping cm²)`;
   }
 
   if (verdictsDiffer && totalWinner) {
@@ -176,11 +176,11 @@ function renderVerdict(comparison) {
   visualizations.innerHTML =
     renderPizzaComparison(comparison) +
     renderValueBarChart(comparison) +
-    renderEdibleShareChart(comparison);
+    renderToppingShareChart(comparison);
 
   statsGrid.innerHTML =
-    renderStatsCard(pizzaA, edibleWinner === 'A') +
-    renderStatsCard(pizzaB, edibleWinner === 'B');
+    renderStatsCard(pizzaA, toppingWinner === 'A') +
+    renderStatsCard(pizzaB, toppingWinner === 'B');
 }
 
 function recalculate() {

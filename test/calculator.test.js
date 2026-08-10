@@ -11,18 +11,18 @@ function testEqualPizzasTie() {
     { diameterCm: 30, priceEur: 12, crustCm: 2 },
   );
   assert.equal(comparison.valid, true);
-  assert.equal(comparison.edibleWinner, 'tie');
+  assert.equal(comparison.toppingWinner, 'tie');
   assert.equal(comparison.totalWinner, 'tie');
 }
 
-function testLargerPizzaWinsOnEdibleValue() {
+function testLargerPizzaWinsOnToppingValue() {
   const comparison = comparePizzas(
     { diameterCm: 30, priceEur: 12, crustCm: 2 },
     { diameterCm: 35, priceEur: 15, crustCm: 2 },
   );
   assert.equal(comparison.valid, true);
-  assert.equal(comparison.edibleWinner, 'B');
-  assert.ok(comparison.pizzaB.pricePerEdibleCm2 < comparison.pizzaA.pricePerEdibleCm2);
+  assert.equal(comparison.toppingWinner, 'B');
+  assert.ok(comparison.pizzaB.pricePerToppingCm2 < comparison.pizzaA.pricePerToppingCm2);
 }
 
 function testThickCrustCanFlipWinner() {
@@ -31,8 +31,8 @@ function testThickCrustCanFlipWinner() {
     { diameterCm: 35, priceEur: 15, crustCm: 6 },
   );
   assert.equal(comparison.valid, true);
-  assert.equal(comparison.edibleWinner, 'A');
-  assert.notEqual(comparison.edibleWinner, comparison.totalWinner);
+  assert.equal(comparison.toppingWinner, 'A');
+  assert.notEqual(comparison.toppingWinner, comparison.totalWinner);
 }
 
 function testCrustThickerThanRadiusFails() {
@@ -41,10 +41,10 @@ function testCrustThickerThanRadiusFails() {
   assert.match(pizza.errors.join(' '), /radius/i);
 }
 
-function testEdibleAreaNeverExceedsTotalArea() {
+function testToppingAreaNeverExceedsTotalArea() {
   const pizza = computePizza({ diameterCm: 32, priceEur: 14, crustCm: 1.5 });
   assert.equal(pizza.valid, true);
-  assert.ok(pizza.edibleAreaCm2 <= pizza.totalAreaCm2);
+  assert.ok(pizza.toppingAreaCm2 <= pizza.totalAreaCm2);
 }
 
 function testInvalidInputsFail() {
@@ -63,7 +63,7 @@ function testSavingsPercent() {
   );
   assert.equal(comparison.valid, true);
   const savings = savingsPercent(
-    comparison.edibleWinner,
+    comparison.toppingWinner,
     comparison.pizzaA,
     comparison.pizzaB,
   );
@@ -72,10 +72,10 @@ function testSavingsPercent() {
 
 const tests = [
   testEqualPizzasTie,
-  testLargerPizzaWinsOnEdibleValue,
+  testLargerPizzaWinsOnToppingValue,
   testThickCrustCanFlipWinner,
   testCrustThickerThanRadiusFails,
-  testEdibleAreaNeverExceedsTotalArea,
+  testToppingAreaNeverExceedsTotalArea,
   testInvalidInputsFail,
   testSavingsPercent,
 ];

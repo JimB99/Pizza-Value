@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pizza-value-v1';
+const CACHE_NAME = 'pizza-value-v2';
 
 const ASSETS = [
   './',

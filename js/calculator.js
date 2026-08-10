@@ -17,14 +17,14 @@ const EPSILON = 1e-9;
  * @property {number} priceEur
  * @property {number} crustCm
  * @property {number} radiusCm
- * @property {number} edibleRadiusCm
- * @property {number} edibleDiameterCm
+ * @property {number} toppingRadiusCm
+ * @property {number} toppingDiameterCm
  * @property {number} totalAreaCm2
- * @property {number} edibleAreaCm2
+ * @property {number} toppingAreaCm2
  * @property {number} crustAreaCm2
- * @property {number} ediblePercent
+ * @property {number} toppingPercent
  * @property {number} pricePerTotalCm2
- * @property {number} pricePerEdibleCm2
+ * @property {number} pricePerToppingCm2
  */
 
 /**
@@ -33,7 +33,7 @@ const EPSILON = 1e-9;
  * @property {string[]} errors
  * @property {PizzaResult|null} pizzaA
  * @property {PizzaResult|null} pizzaB
- * @property {'A'|'B'|'tie'|null} edibleWinner
+ * @property {'A'|'B'|'tie'|null} toppingWinner
  * @property {'A'|'B'|'tie'|null} totalWinner
  * @property {boolean} verdictsDiffer
  */
@@ -81,23 +81,23 @@ export function computePizza({ diameterCm, priceEur, crustCm, label = 'Pizza' })
       priceEur: priceEur ?? 0,
       crustCm: crustCm ?? 0,
       radiusCm: 0,
-      edibleRadiusCm: 0,
-      edibleDiameterCm: 0,
+      toppingRadiusCm: 0,
+      toppingDiameterCm: 0,
       totalAreaCm2: 0,
-      edibleAreaCm2: 0,
+      toppingAreaCm2: 0,
       crustAreaCm2: 0,
-      ediblePercent: 0,
+      toppingPercent: 0,
       pricePerTotalCm2: 0,
-      pricePerEdibleCm2: 0,
+      pricePerToppingCm2: 0,
     };
   }
 
-  const edibleRadiusCm = radiusCm - crustCm;
-  const edibleDiameterCm = edibleRadiusCm * 2;
+  const toppingRadiusCm = radiusCm - crustCm;
+  const toppingDiameterCm = toppingRadiusCm * 2;
   const totalAreaCm2 = Math.PI * radiusCm ** 2;
-  const edibleAreaCm2 = Math.PI * edibleRadiusCm ** 2;
-  const crustAreaCm2 = totalAreaCm2 - edibleAreaCm2;
-  const ediblePercent = totalAreaCm2 > 0 ? (edibleAreaCm2 / totalAreaCm2) * 100 : 0;
+  const toppingAreaCm2 = Math.PI * toppingRadiusCm ** 2;
+  const crustAreaCm2 = totalAreaCm2 - toppingAreaCm2;
+  const toppingPercent = totalAreaCm2 > 0 ? (toppingAreaCm2 / totalAreaCm2) * 100 : 0;
 
   return {
     valid: true,
@@ -107,14 +107,14 @@ export function computePizza({ diameterCm, priceEur, crustCm, label = 'Pizza' })
     priceEur,
     crustCm,
     radiusCm,
-    edibleRadiusCm,
-    edibleDiameterCm,
+    toppingRadiusCm,
+    toppingDiameterCm,
     totalAreaCm2,
-    edibleAreaCm2,
+    toppingAreaCm2,
     crustAreaCm2,
-    ediblePercent,
+    toppingPercent,
     pricePerTotalCm2: priceEur / totalAreaCm2,
-    pricePerEdibleCm2: priceEur / edibleAreaCm2,
+    pricePerToppingCm2: priceEur / toppingAreaCm2,
   };
 }
 
@@ -147,15 +147,15 @@ export function comparePizzas(pizzaA, pizzaB) {
       errors,
       pizzaA: resultA,
       pizzaB: resultB,
-      edibleWinner: null,
+      toppingWinner: null,
       totalWinner: null,
       verdictsDiffer: false,
     };
   }
 
-  const edibleWinner = compareLowerIsBetter(
-    resultA.pricePerEdibleCm2,
-    resultB.pricePerEdibleCm2,
+  const toppingWinner = compareLowerIsBetter(
+    resultA.pricePerToppingCm2,
+    resultB.pricePerToppingCm2,
   );
   const totalWinner = compareLowerIsBetter(
     resultA.pricePerTotalCm2,
@@ -167,9 +167,9 @@ export function comparePizzas(pizzaA, pizzaB) {
     errors: [],
     pizzaA: resultA,
     pizzaB: resultB,
-    edibleWinner,
+    toppingWinner,
     totalWinner,
-    verdictsDiffer: edibleWinner !== totalWinner,
+    verdictsDiffer: toppingWinner !== totalWinner,
   };
 }
 
@@ -183,8 +183,8 @@ export function savingsPercent(winner, pizzaA, pizzaB) {
   if (winner === 'tie') {
     return 0;
   }
-  const winnerPrice = winner === 'A' ? pizzaA.pricePerEdibleCm2 : pizzaB.pricePerEdibleCm2;
-  const loserPrice = winner === 'A' ? pizzaB.pricePerEdibleCm2 : pizzaA.pricePerEdibleCm2;
+  const winnerPrice = winner === 'A' ? pizzaA.pricePerToppingCm2 : pizzaB.pricePerToppingCm2;
+  const loserPrice = winner === 'A' ? pizzaB.pricePerToppingCm2 : pizzaA.pricePerToppingCm2;
   if (loserPrice <= 0) {
     return 0;
   }
